@@ -39,7 +39,7 @@ class SPSettings{
   double getFontSize(){
     double size = _sp.getDouble(fontSize);
     if(size == null){
-      size = 14;
+      size = 16;
     }
     return size;
   }
