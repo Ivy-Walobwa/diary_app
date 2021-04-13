@@ -1,3 +1,4 @@
+import 'package:diary_app/data/sembast_db.dart';
 import 'package:flutter/material.dart';
 import '../../models/password.dart';
 import 'passwords_screen.dart';
@@ -52,6 +53,8 @@ class _PasswordDetailDialogState extends State<PasswordDetailDialog> {
           onPressed: () {
             widget.password.name = txtName.text;
             widget.password.password = txtPassword.text;
+            SembastDb db = SembastDb();
+            widget.isNew ? db.addPassword(widget.password) : db.updatePassword(widget.password);
             Navigator.pop(context);
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => PasswordsScreen()));
