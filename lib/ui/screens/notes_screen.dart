@@ -44,6 +44,17 @@ class _NotesScreenState extends State<NotesScreen> {
           } else {
             return ReorderableListView(
               onReorder: (oldIndex, newIndex) async {
+                final Note note = notes[oldIndex];
+                if(oldIndex > newIndex ){
+                  await sqlHelper.updatePosition(true, newIndex, oldIndex);
+                }else if(oldIndex < newIndex){
+                  await sqlHelper.updatePosition(false, newIndex, oldIndex);
+                }
+                note.position = newIndex;
+                await sqlHelper.updateNote(note);
+                setState(() {
+                  getNotes();
+                });
               },
               children: [
                 for (final note in notes)

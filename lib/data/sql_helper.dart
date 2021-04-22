@@ -50,6 +50,7 @@ class SQLHelper {
   }
 
   Future<int> newNote(Note note) async {
+    note.position = await findPosition();
     int result = await _db.insert(_tableNotes, note.toJson());
     return result;
   }
@@ -61,8 +62,29 @@ class SQLHelper {
   }
 
   Future<int> deleteNote(Note note) async {
-    int result =
-        await _db.delete(_tableNotes, where: '$_colId = ?', whereArgs: [note.id]);
+    int result = await _db
+        .delete(_tableNotes, where: '$_colId = ?', whereArgs: [note.id]);
     return result;
+  }
+
+  Future<int> findPosition() async {
+    final String sql = 'select max($_colPosition) from $_tableNotes';
+    List<Map> query = await _db.rawQuery(sql);
+    int position = query.first.values.first;
+    position = position == null ? 0 : ++position;
+    return position;
+  }
+
+  Future updatePosition(bool increment, int start, int end) async{
+    String sql;
+    if(increment){
+      sql = 'update $_tableNotes set $_colPosition = $_colPosition + 1 '+
+          'where $_colPosition >= $start and $_colPosition <=$end';
+    }else{
+      sql = 'update $_tableNotes set $_colPosition = $_colPosition - 1 '+
+          'where $_colPosition >= $start and $_colPosition <=$end';
+    }
+
+    await _db.rawUpdate(sql);
   }
 }
