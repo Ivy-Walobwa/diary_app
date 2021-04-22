@@ -15,7 +15,7 @@ class Note{
     position = json['position'];
   }
 
-  Map<String, dynamic> toMJson(){
+  Map<String, dynamic> toJson(){
     return{
       'id': id,
       'name': name,
