@@ -3,6 +3,7 @@ import 'package:sembast/sembast_io.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'sembast_codec.dart';
 import '../models/password.dart';
 
 class SembastDb {
@@ -14,6 +15,7 @@ class SembastDb {
 
   final store = intMapStoreFactory.store('password');
 
+  var codec = getEncryptSembastCodec(password: 'Password');
   static SembastDb _singletone = SembastDb._internal();
 
   SembastDb._internal();
@@ -35,7 +37,7 @@ class SembastDb {
     final dbPath = join(docsDir.path, 'pass.db');
 
     // always open sembast db before use
-    final db = await databaseFactory.openDatabase(dbPath);
+    final db = await databaseFactory.openDatabase(dbPath, codec: codec);
     return db;
   }
 
