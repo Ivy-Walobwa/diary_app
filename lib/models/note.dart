@@ -3,7 +3,7 @@ class Note{
   String name;
   String date;
   String notes;
-  String position;
+  int position;
 
   Note({this.name, this.date, this.position, this.notes});
 
