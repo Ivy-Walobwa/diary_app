@@ -5,6 +5,7 @@ import 'settings_screen.dart';
 import 'passwords_screen.dart';
 import 'notes_screen.dart';
 import 'posts.dart';
+import 'files.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -105,6 +106,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => PostsScreen()));
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    'Files',
+                    style: TextStyle(
+                      fontSize: fontSize,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FilesScreen()));
                   },
                 ),
               ],
