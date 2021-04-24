@@ -4,6 +4,7 @@ import '../../data/shared_prefs_settings.dart';
 import 'settings_screen.dart';
 import 'passwords_screen.dart';
 import 'notes_screen.dart';
+import 'posts.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -89,6 +90,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => NotesScreen()));
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    'Blog Posts',
+                    style: TextStyle(
+                      fontSize: fontSize,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PostsScreen()));
                   },
                 ),
               ],
